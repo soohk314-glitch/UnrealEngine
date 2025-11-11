@@ -1,76 +1,75 @@
 # 언리얼 엔진 데일리 브리핑 | 2025년 11월 11일
 
+작성일: 2025년 11월 11일 (KST)
+
 ## 1. 핵심 요약
 
-| 순위 | 주요 업데이트 | 즉시 확인 필요 사항 | 출처 URL 및 게시일 (KST) |
-| :--- | :--- | :--- | :--- |
-| 1 | **CVE-2025-55247 보안 취약점 관련 엔진 버전 업데이트 논의** | UE 5.4, 5.5, 5.6 사용자는 `Microsoft.Build` 패키지 버전 수동 업데이트 필요. | [https://forums.unrealengine.com/t/update-currently-distributed-engine-versions-to-address-cve-2025-55247-effecting-5-4-5-5-5-6/2672485](https://forums.unrealengine.com/t/update-currently-distributed-engine-versions-to-address-cve-2025-55247-effecting-5-4-5-5-5-6/2672485) (2025-11-06) |
-| 2 | **`r.CreateShadersOnLoad=1` 활성화 시 빌드 크래시** | 셰이더 생성 실패로 인한 크래시 발생. UE 5.5, 5.6 브랜치에서 확인됨. | [https://issues.unrealengine.com/issue/UE-Graphics-Features-Nov-10-2025](https://issues.unrealengine.com/issue/UE-Graphics-Features-Nov-10-2025) (2025-11-10) |
-| 3 | **레이 트레이싱 관련 버그 수정** | `Source Length > 0`인 레이 트레이싱 라이트가 Megalights와 함께 부정확하게 동작하는 문제 수정 (2025년 3월 26일 업데이트). | [https://issues.unrealengine.com/issue/UE-Graphics-Features-Mar-26-2025](https://issues.unrealengine.com/issue/UE-Graphics-Features-Mar-26-2025) (2025-03-26) |
+| 구분 | 내용 |
+| :--- | :--- |
+| **주요 업데이트 상위 3개** | 1. **보안 업데이트 권고:** UE 5.4, 5.5, 5.6 버전에 영향을 미치는 .NET 관련 취약점 (**CVE-2025-55247**)에 대한 긴급 대응 및 워크어라운드 정보 공개. 2. **UE 5.7 Materials 시스템 업데이트 논의:** 공식 포럼에서 5.7 버전의 Materials 시스템 신기능 및 개선 사항에 대한 지식 기반 문서가 공유됨. 3. **RealityCapture 1.4 릴리즈:** Epic Games Launcher를 통해 RealityCapture 1.4 버전이 새로운 가격 정책과 함께 업데이트됨. |
+| **즉시 확인 필요 사항** | **CVE-2025-55247 취약점 대응:** UE 5.4, 5.5, 5.6 버전을 소스 빌드하여 사용하는 개발팀은 Microsoft.Build 패키지 버전을 수동으로 업데이트해야 합니다. Epic Games의 공식 핫픽스 릴리즈를 주시해야 합니다. |
+| **출처 URL 및 게시일** | [CVE-2025-55247 관련 포럼 공지](https://forums.unrealengine.com/t/update-currently-distributed-engine-versions-to-address-cve-2025-55247-effecting-5-4-5-5-5-6/2672485) (2025-11-06) |
 
 ## 2. 공식 릴리즈 및 패치
 
-최근 7일간 새로운 공식 릴리즈 또는 패치 노트는 확인되지 않았습니다.
+**최신 공식 릴리즈 정보:**
 
-**주요 변경사항 및 Breaking Changes (최신 정보)**
+현재 시점(2025년 11월 11일) 기준으로 **최근 7일간 새로운 공식 엔진 버전 릴리즈(Hotfix, Minor, Major)는 확인되지 않았습니다.**
 
-*   **CVE-2025-55247 보안 취약점**: UE 5.4, 5.5, 5.6 버전에서 `Microsoft.Build` 패키지 버전과 관련된 보안 취약점(CVE-2025-55247)이 보고되었습니다. Epic Games Launcher를 통해 배포된 바이너리에서 `Microsoft.Build` 패키지 버전이 하드 레퍼런스되어 있어, 사용자가 수동으로 NuGet 패키지를 업데이트해야 하는 Workaround가 포럼에 공유되었습니다. Epic Games 측의 공식 핫픽스 배포가 요청되고 있습니다.
+**가장 최근의 주요 업데이트 사항:**
 
-**릴리즈 노트 URL**
-*   최신 공식 릴리즈 노트는 확인되지 않았습니다.
+*   **버전 릴리즈:** Epic Games는 UE 5.4, 5.5, 5.6 버전에 영향을 미치는 .NET 관련 보안 취약점 **CVE-2025-55247**에 대한 대응을 위해 엔진 버전 업데이트를 준비 중임을 알렸습니다.
+*   **주요 변경사항 및 Breaking Changes:** 공식 핫픽스 릴리즈는 아직 발표되지 않았으나, 해당 취약점은 .NET의 `Microsoft.Build` 패키지 버전의 문제로, 소스 빌드 환경에서 권한 상승(Privilege Elevation) 공격에 노출될 수 있습니다.
+*   **릴리즈 노트 URL:** 공식 릴리즈 노트는 아직 없으며, 관련 논의는 포럼을 통해 진행 중입니다.
+    *   [CVE-2025-55247 관련 포럼 공지](https://forums.unrealengine.com/t/update-currently-distributed-engine-versions-to-address-cve-2025-55247-effecting-5-4-5-5-5-6/2672485)
 
 ## 3. 버그 및 이슈
 
-**Issue Tracker URL**: [https://issues.unrealengine.com/issue/search](https://issues.unrealengine.com/issue/search)
+**최신 버그 및 이슈 트래커 업데이트:**
 
-### 새로 보고된 주요 버그 (최신 7일 이내)
+Unreal Engine Issue Tracker([https://issues.unrealengine.com/](https://issues.unrealengine.com/))에서 **최근 7일간** 개발자에게 직접적으로 영향을 미치는 주요 버그의 신규 보고 또는 수정 사항은 특정되지 않았습니다.
 
-| 이슈 ID | 제목 | 영향받는 시스템 | 보고일 (KST) | 상태 |
-| :--- | :--- | :--- | :--- | :--- |
-| UE-XXXXX | **Build crash when enabling `r.CreateShadersOnLoad=1`** | Graphics Features | 2025-11-10 | Unresolved |
-| UE-XXXXX | **"Visualize Level Instance Editing" defaults to on, during sequencer playback** | Anim - Sequencer | 2025-11-07 | Won't Do |
-| UE-XXXXX | **5.6 Skeletal Meshes with Disabled Sections Flicker in Ray Tracing Scene** | Graphics Features | 2025-11-07 | Unresolved |
-| UE-XXXXX | **Adding a streamed empty LevelInstance in a WP level will result in an incorrect mapcheck error** | World Creation - Worldbuilding Tools | 2025-11-07 | Unresolved |
-
-### 수정된 버그 (최신 정보)
-
-최근 7일간 업데이트된 'Fixed' 상태의 이슈는 확인되지 않았습니다. 가장 최근에 업데이트된 'Fixed' 이슈는 다음과 같습니다.
-
-| 이슈 ID | 제목 | 영향받는 시스템 | 업데이트일 (KST) |
-| :--- | :--- | :--- | :--- |
-| UE-XXXXX | **EncompassesPoint always returns false on ANavMeshBoundsVolume due to missing BodyInstance** | AI | 2025-08-03 |
-| UE-XXXXX | **Raytraced lights with Source Length > 0 behave incorrectly with Megalights** | Graphics Features - Ray Tracing | 2025-03-26 |
-| UE-XXXXX | **Subsurface Scattering Checkerboard with SceneColourFormat 3 (High Scalability) leads to a visual artefact when temporal upscaling is in use** | Graphics Features | 2024-09-30 |
-
-### Workaround
-
-*   **CVE-2025-55247 관련 Workaround**: UE 5.4, 5.5, 5.6 사용자는 Visual Studio의 NuGet 도구를 사용하여 `Microsoft.Build` 패키지 버전을 [https://github.com/advisories/GHSA-w3q9-fxm7-j8fq](https://github.com/advisories/GHSA-w3q9-fxm7-j8fq)에서 권장하는 버전(예: 5.5의 경우 `17.11.28`)으로 수동 업데이트해야 합니다.
+| 구분 | 내용 |
+| :--- | :--- |
+| **새로 보고된 주요 버그** | 최근 7일간 새로운 업데이트 사항이 없습니다. |
+| **수정된 버그** | 최근 7일간 새로운 업데이트 사항이 없습니다. |
+| **Workaround (CVE-2025-55247 관련)** | 소스 빌드 사용자는 Visual Studio의 NuGet 도구를 사용하여 `Microsoft.Build` 패키지를 취약점이 해결된 버전(예: 5.5의 경우 `17.11.28`)으로 수동 업데이트해야 합니다. 자세한 절차는 포럼 공지사항을 참조하십시오. |
+| **Issue Tracker URL** | [Unreal Engine Issues and Bug Tracker](https://issues.unrealengine.com/) |
 
 ## 4. GitHub 업데이트
 
-최근 7일간 EpicGames/UnrealEngine GitHub 저장소의 주요 기술 커밋은 확인되지 않았습니다.
+**EpicGames/UnrealEngine 저장소 활동:**
 
-**GitHub URL**: [https://github.com/EpicGames/UnrealEngine](https://github.com/EpicGames/UnrealEngine)
+Epic Games의 공식 GitHub 저장소([https://github.com/EpicGames/UnrealEngine](https://github.com/EpicGames/UnrealEngine))에서 **최근 7일간** 개발자에게 직접적인 영향을 미치는 주요 커밋이나 Pull Request 병합 활동은 확인되지 않았습니다.
+
+*   **주요 커밋 및 Pull Request:** 최근 7일간 새로운 업데이트 사항이 없습니다.
+*   **영향받는 시스템:** 해당 사항 없음.
+*   **GitHub URL:** [EpicGames/UnrealEngine](https://github.com/EpicGames/UnrealEngine)
 
 ## 5. 공식 포럼 기술 논의
 
-최근 7일간 Epic Staff가 답변한 주요 기술 스레드는 확인되지 않았습니다.
+**Epic Staff 답변 기술 스레드:**
 
-**포럼 URL**: [https://forums.unrealengine.com/](https://forums.unrealengine.com/)
+*   **Materials - New Features & Updates in Unreal Engine 5.7:** UE 5.7 버전의 Materials 시스템에 추가되거나 개선된 기능들을 정리한 지식 기반 문서가 공유되었습니다. 이는 곧 출시될 5.7 버전에 대한 사전 정보로 활용될 수 있습니다.
+    *   **포럼 URL:** [Materials - New Features & Updates in Unreal Engine 5.7](https://forums.unrealengine.com/t/knowledge-base-materials-new-features-updates-in-unreal-engine-5-7/2673965) (게시일: 2025-11-11)
+*   **CVE-2025-55247 보안 업데이트 논의:** UE 5.4, 5.5, 5.6의 보안 취약점 대응을 위한 엔진 버전 업데이트에 대한 논의가 활발히 진행되었습니다.
+    *   **포럼 URL:** [update currently distributed Engine versions to address CVE-2025-55247](https://forums.unrealengine.com/t/update-currently-distributed-engine-versions-to-address-cve-2025-55247-effecting-5-4-5-5-5-6/2672485) (게시일: 2025-11-06)
 
 ## 6. 신기능 및 실험적 기능
 
-최근 7일간 공식적으로 발표된 신규 기능 또는 실험적 기능 업데이트는 확인되지 않았습니다.
+**최신 신기능 및 실험적 기능 정보:**
 
-**성능 영향도 (최신 정보)**
-
-*   **Unreal Engine 5.5 업데이트 성능 향상**: 일부 프로젝트에서 UE 5.5 업데이트를 통해 병렬 렌더링(parallel rendering) 도입 등으로 인해 CPU 부하가 크게 감소하고 FPS가 30-50% 향상되었다는 외부 보고가 있습니다. (출처: Gray Zone Warfare 사례)
+*   **UE 5.7 Materials 시스템 개선:** 공식 포럼을 통해 5.7 버전에서 Materials 시스템에 대한 다양한 신기능 및 품질 개선(QoL)이 예정되어 있음이 확인되었습니다.
+*   **Beta/Experimental 기능 및 주의사항:** 현재 시점에서 새로운 Beta/Experimental 기능에 대한 공식적인 발표는 없으나, 5.7 Preview 릴리즈를 통해 새로운 기능들이 공개될 예정입니다.
+*   **성능 영향도:** 해당 사항 없음.
 
 ## 7. 플러그인 및 문서 업데이트
 
-최근 7일간 공식 플러그인 또는 문서의 주요 기술 변경사항은 확인되지 않았습니다.
+**최신 플러그인 및 문서 업데이트 정보:**
 
-**문서 주요 변경사항 (최신 정보)**
+*   **공식 플러그인 업데이트:** **RealityCapture 1.4** 버전이 Epic Games Launcher 및 Epic Developer Portal을 통해 다운로드 가능하며, 새로운 가격 정책이 적용되었습니다. RealityCapture는 Epic Games가 인수한 3D 스캐닝 및 포토그라메트리 소프트웨어입니다.
+    *   **출처:** [Latest Announcements topics - Epic Developer Community](https://forums.unrealengine.com/c/general/announcements/49) (게시일: 2025-11-11)
+*   **문서 주요 변경사항:** 최근 7일간 Unreal Engine 공식 문서([https://dev.epicgames.com/documentation/en-us/unreal-engine](https://dev.epicgames.com/documentation/en-us/unreal-engine))의 주요 변경사항은 특정되지 않았습니다.
 
-*   **UE 5.6부터 "Preview Game Language"의 "None" 옵션 제거**: UE 5.6부터 에디터 환경설정에서 "Preview Game Language"의 "None" 옵션이 제거되었습니다. (2025-10-24)
-*   **MetaHuman 관련 수정**: `GeneSplicerModule`에서 `FArchiveMemoryStream` 클래스의 이중 정의로 인한 링커 오류가 수정되었습니다. (2025-10-16)
+---
+*본 보고서는 2025년 11월 11일 KST 기준 Epic Games의 공식 채널(포럼, 이슈 트래커, GitHub)에서 공개된 정보를 바탕으로 작성되었습니다.*
