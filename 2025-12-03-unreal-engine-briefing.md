@@ -1,0 +1,85 @@
+# 언리얼 엔진 데일리 브리핑 | 2025년 12월 03일
+
+실무 개발자를 위한 언리얼 엔진의 최신 기술 업데이트, 릴리즈, 패치, 버그 정보를 정리한 보고서입니다.
+
+## 1. 핵심 요약
+
+| 구분 | 내용 | 출처 URL 및 게시일 (KST) |
+| :--- | :--- | :--- |
+| **주요 업데이트 1** | **UE 5.7.1 핫픽스 릴리즈** (약 100여 개의 수정 사항 포함) | [Epic Developer Community Forums](https://forums.unrealengine.com/t/5-7-1-hotfix-released/2681235) (2025-12-02) |
+| **주요 업데이트 2** | **UE 5.7 주요 기능 안정화 및 실험적 기능 추가** (MegaLights 베타, Substrate 정식화, Nanite Foliage 실험적 기능) | [Unreal Engine 5.7 Release Notes](https://dev.epicgames.com/documentation/en-us/unreal-engine/unreal-engine-5-7-release-notes) (2025-11-12) |
+| **주요 업데이트 3** | **주요 버그 수정** (Path Tracing, MetaHuman, PCG 관련 에디터/크래시 버그 다수 해결) | [Epic Developer Community Forums](https://forums.unrealengine.com/t/5-7-1-hotfix-released/2681235) (2025-12-02) |
+| **즉시 확인 필요 사항** | **UE 5.7부터 Linux 환경에서 SDL2가 SDL3로 전환**됩니다. SDL2 코드를 커스터마이징한 사용자는 SDL3에 맞게 변경 사항을 재작업해야 합니다. | [Epic Developer Community Forums](https://forums.unrealengine.com/t/5-7-1-hotfix-released/2681235) (2025-12-02) |
+
+## 2. 공식 릴리즈 및 패치
+
+| 버전 릴리즈 | 주요 변경사항 및 Breaking Changes | 릴리즈 노트 URL |
+| :--- | :--- | :--- |
+| **5.7.1 Hotfix** | 약 100여 개의 버그 및 업데이트가 포함된 핫픽스입니다. **Breaking Change**로, UE 5.7부터 Linux 환경에서 SDL2가 SDL3로 전환되므로, SDL2 코드를 커스터마이징한 경우 주의가 필요합니다. | [5.7.1 Hotfix Released](https://forums.unrealengine.com/t/5-7-1-hotfix-released/2681235) |
+| **5.7** | **MegaLights (Beta)**, **Niagara Heterogeneous Volumes (Beta)**, **Substrate (Production-Ready)**, **Nanite Foliage and Skinning (Experimental)** 등 렌더링 및 애니메이션 분야의 대규모 업데이트가 포함되었습니다. | [Unreal Engine 5.7 Release Notes](https://dev.epicgames.com/documentation/en-us/unreal-engine/unreal-engine-5-7-release-notes) |
+
+## 3. 버그 및 이슈
+
+### 새로 보고된 주요 버그 (Issue Tracker 최신 정보)
+
+| 이슈 ID | 요약 | 영향받는 시스템 |
+| :--- | :--- | :--- |
+| UE-XXXXXX | **Nanite 활성화 시 LandscapeSplineMesh의 PlayerCollision 시각화 오류** | Graphics Tools, Terrain, Landscape |
+| UE-XXXXXX | **`r.rhisetgpucaptureoptions=1` 설정 시 Unreal Insights에서 패스 이름이 "RDGEvent"로 표시되는 문제** | Rendering Architecture, RHI |
+| UE-XXXXXX | **`FStateTreeRunParallelStateTreeTask` 사용 시 `TStateTreePropertyRef`가 제대로 해석되지 않는 문제** | AI, StateTree |
+| **Issue Tracker URL** | [Unreal Engine Issues and Bug Tracker](https://issues.unrealengine.com/) | |
+
+### 수정된 버그 (5.7.1 Hotfix 주요 항목)
+
+| 이슈 ID | 요약 |
+| :--- | :--- |
+| **UE-193929** | mGPU에서 Path Tracing 뷰 모드 활성화 시 카메라 이동 중 에디터 응답 없음 현상 수정 |
+| **UE-227868** | Cinematic MetaHumans가 레벨 뷰포트에서 AMD GPU 크래시를 유발하는 문제 수정 |
+| **UE-349638** | PCG: PIE에서 생성 시 에디터와 게임 월드가 모두 렌더링되어 렌더링 비용이 두 배가 되는 문제 수정 |
+| **UE-352089** | Full Body IK Solver에 IK Goal 추가 시 크래시 발생하는 문제 수정 |
+| **UE-350131** | Audio/StreamCache: 스트리밍 청크 참조 카운팅으로 인한 메모리 누수 수정 |
+| **UE-350545** | Vulkan에서 올바른 뷰를 사용하도록 앨리어싱된 텍스처 수정 (GitHub 13964) |
+
+### Workaround
+
+현재까지 공식적으로 발표된 Workaround는 없습니다.
+
+## 4. GitHub 업데이트
+
+Epic Games의 공식 GitHub 저장소는 내부 개발 프로세스로 인해 `ue5-main` 브랜치에 대한 직접적인 커밋 활동을 외부에서 상세히 추적하기 어렵습니다.
+
+| 구분 | 내용 | GitHub URL |
+| :--- | :--- | :--- |
+| **주요 커밋 및 Pull Request** | 최근 7일간 Epic Games/UnrealEngine 저장소의 `main` 또는 `ue5-main` 브랜치에 대한 **주요 기술 커밋**은 공개적으로 확인되지 않았습니다. 대부분의 업데이트는 5.7.1 핫픽스 릴리즈에 통합되었습니다. | [EpicGames/UnrealEngine GitHub](https://github.com/EpicGames/UnrealEngine) |
+| **영향받는 시스템** | 5.7.1 핫픽스에 포함된 GitHub 커밋은 주로 **Vulkan 텍스처 뷰 수정** 등 렌더링 관련 시스템에 영향을 미쳤습니다. | [5.7.1 Hotfix Released](https://forums.unrealengine.com/t/5-7-1-hotfix-released/2681235) |
+
+## 5. 공식 포럼 기술 논의
+
+최근 7일간 Epic Staff가 답변한 **새로운** 주요 기술 스레드는 검색되지 않았습니다. 포럼 활동은 주로 5.7.1 핫픽스에 대한 피드백 및 버그 보고에 집중되고 있습니다.
+
+| 구분 | 내용 | 포럼 URL |
+| :--- | :--- | :--- |
+| **Epic Staff 답변 기술 스레드** | 최근 7일간 새로운 기술 논의 스레드는 확인되지 않았습니다. | [Epic Developer Community Forums](https://forums.unrealengine.com/) |
+
+## 6. 신기능 및 실험적 기능
+
+UE 5.7 버전에서 도입된 주요 신기능 및 실험적 기능은 다음과 같습니다.
+
+| 기능명 | 상태 | 주요 내용 | 성능 영향도 및 주의사항 |
+| :--- | :--- | :--- | :--- |
+| **MegaLights** | Beta | Directional Light, Niagara Particle Lights, Translucency, Hair Strands 지원 및 노이즈 감소, 전반적인 성능 개선. | Beta 기능으로, 프로덕션 적용 시 성능 및 안정성 테스트 필요. |
+| **Substrate** | Production-Ready | 모듈식, 물리 기반 재질 프레임워크. Adaptive GBuffer 및 Blendable GBuffer 지원. | UE 5.7부터 기본 활성화. 고급 기능 사용 시 Adaptive GBuffer 지원 하드웨어 필요. |
+| **Nanite Foliage and Skinning** | Experimental | Nanite Assemblies, Nanite Skinning (동적 바람), Nanite Voxels을 통한 효율적인 포리지 렌더링. | **Experimental 기능**으로, 프로덕션 사용에 적합하지 않으며 기능 변경 가능성이 높음. 60fps 목표로 설계되었으나, 실제 성능 영향도 테스트 필요. |
+| **SMAA (Subpixel Morphological Anti-Aliasing)** | Experimental | 모바일 및 데스크톱 렌더러 지원. 최소한의 성능 영향으로 고품질 에지 스무딩 제공. | `r.Mobile.AntiAliasing=5` 또는 `r.AntiAliasingMethod=5`로 활성화. 품질 설정(`r.SMAA.Quality`)을 통한 성능/시각적 트레이드오프 조정 가능. |
+| **Motion Matching Chooser Integration** | Experimental | 모션 매칭을 Chooser에 통합하여 개별 에셋 수준에서 유효성 제어 가능. | **Experimental 기능**으로, 디버깅 기능이 통합되어 있으나, 초기 버전이므로 주의 필요. |
+| **World Collisions for Control Rig Physics** | New | Control Rig Physics 시뮬레이션에 레벨 충돌(월드 지오메트리 및 물리 바디) 사용 가능. | One-way 상호작용 지원. 복잡한 시뮬레이션에서 성능 영향도 확인 필요. |
+
+## 7. 플러그인 및 문서 업데이트
+
+| 구분 | 내용 |
+| :--- | :--- |
+| **공식 플러그인 업데이트** | 5.7.1 핫픽스에 **EOS (Epic Online Services) 1.18.1.2 바이너리 업데이트**(`UE-352426`)가 포함되었습니다. |
+| **문서 주요 변경사항** | UE 5.7 릴리즈에 맞춰 **MegaLights, Substrate, Nanite Foliage** 등 주요 기능에 대한 문서가 업데이트되었습니다. 최신 문서는 [Unreal Engine 5.7 Documentation](https://dev.epicgames.com/documentation/en-us/unreal-engine/unreal-engine-5-7-release-notes)에서 확인할 수 있습니다. |
+
+---
+*본 보고서는 Manus AI에 의해 2025년 12월 03일 (KST)에 자동 생성되었습니다.*
