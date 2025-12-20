@@ -1,78 +1,80 @@
 # 언리얼 엔진 데일리 브리핑 | 2025년 12월 20일
 
+실무 개발자를 위한 언리얼 엔진의 최신 기술 업데이트 및 이슈 보고서입니다. (KST 기준)
+
 ## 1. 핵심 요약
 
 | 구분 | 내용 |
 | :--- | :--- |
-| **주요 업데이트 상위 3개** | 1. **Substrate Materials** 정식 버전 전환 (UE 5.7) <br> 2. **PCG(Procedural Content Generation)** 프레임워크 정식 버전 전환 (UE 5.7) <br> 3. **Microsoft GDK Plug-ins** 공식 지원 (최근 7일 이내) |
-| **즉시 확인 필요 사항** | **UE 5.7.1 핫픽스**에서 100여 개의 버그가 수정되었으며, 특히 **Path Tracing, MetaHuman, Control Rig** 관련 크래시 수정 사항을 확인해야 합니다. 또한, Linux 사용자는 **SDL2에서 SDL3로의 전환**에 따른 코드 변경이 필요할 수 있습니다. |
-| **출처 URL 및 게시일** | UE 5.7.1 Hotfix: [https://forums.unrealengine.com/t/5-7-1-hotfix-released/2681235](https://forums.unrealengine.com/t/5-7-1-hotfix-released/2681235) (2025-12-02) <br> Microsoft GDK Plug-ins: [https://developer.microsoft.com/en-us/games/articles/2025/12/microsoft-gdk-plug-ins-for-unreal-engine-now-available/](https://developer.microsoft.com/en-us/games/articles/2025/12/microsoft-gdk-plug-ins-for-unreal-engine-now-available/) (2025-12-12) |
-
----
+| **주요 업데이트 상위 3개** | 1. **Substrate Materials** 정식 출시 (UE 5.7) <br> 2. **PCG (Procedural Content Generation)** 프레임워크 정식 출시 (UE 5.7) <br> 3. **Nanite Foliage** (실험적) 시스템 도입 (UE 5.7) |
+| **즉시 확인 필요 사항** | **UE 5.7.1 Hotfix** 적용 여부 확인 (약 100개 버그 수정). Linux 사용자는 **SDL2에서 SDL3로의 전환** (Breaking Change)에 따른 코드 수정 필요성 [1]. |
+| **최신 이슈** | `r.SSR.Stencil` 활성화 시 잘못된 로직 관찰 (Dec 19, 2025), UE 5.7.1에서 `Cooker`가 `Class.h`에서 어서트 발생 (Dec 18, 2025) [3]. |
+| **출처 URL 및 게시일** | [Unreal Engine 5.7 Release Notes](https://dev.epicgames.com/documentation/en-us/unreal-engine/unreal-engine-5-7-release-notes) (게시일: 2025-11-12) |
 
 ## 2. 공식 릴리즈 및 패치
 
 - **버전 릴리즈:** **Unreal Engine 5.7.1 Hotfix**
 - **주요 변경사항 및 Breaking Changes:**
-    - **약 100여 개의 버그 및 업데이트**가 포함된 핫픽스입니다.
-    - **주요 수정 사항:** Path Tracing 뷰 모드 사용 시 에디터 멈춤 현상, MetaHuman 시네마틱 관련 AMD GPU 크래시, Control Rig 에디터 크래시, PCG 관련 크래시 및 성능 문제 등이 해결되었습니다.
-    - **Linux Breaking Change (UE 5.7 기준):** Linux 빌드는 SDL2에서 SDL3로 전환되었습니다. SDL2 코드를 커스터마이징한 사용자는 SDL3에 맞게 코드를 수정해야 합니다.
-- **릴리즈 노트 URL:** [https://forums.unrealengine.com/t/5-7-1-hotfix-released/2681235](https://forums.unrealengine.com/t/5-7-1-hotfix-released/2681235)
-
----
+    - 5.7 버전에서 발견된 약 100개에 가까운 버그 및 업데이트를 수정했습니다. [2]
+    - **Breaking Change:** UE 5.7부터 Linux 플랫폼에서 **SDL2가 SDL3로 전환**됩니다. SDL2 코드를 커스터마이징한 사용자는 SDL3에 맞게 변경해야 합니다. [1]
+- **릴리즈 노트 URL:** [5.7.1 Hotfix Released - Epic Developer Community Forums](https://forums.unrealengine.com/t/5-7-1-hotfix-released/2681235)
 
 ## 3. 버그 및 이슈
 
-- **새로 보고된 주요 버그 (최근 24시간 이내):**
-    - `r.SSR.Stencil` 활성화 시 잘못된 로직 관찰 (Graphics Features)
-    - `.zfprj` 임포트 중 특정 설정에서 크래시 발생 (RS - Alignment)
-    - `AsyncLoadingThread`에서 `UObject` 재구성으로 인한 `Subobject ComponentClass` 오버라이드 어설션 실패 (Framework - Blueprint)
-- **수정된 버그 (최근 24시간 이내):**
-    - `DynamicSubobjectInstancing` 및 `NonNativeInstancedSubobjects` 자동화 테스트 실패 문제 해결 (Framework)
-    - `ActorPosition` 머티리얼 노드 사용 시 Nanite ISM의 잘못된 모션 벡터 문제 해결 (Graphics Features)
-    - `Affect Indirect Lighting While Hidden` 활성화 시 아웃라이너 눈 아이콘으로 스태틱 메시 숨기기 실패 문제 해결 (Rendering Architecture)
+- **새로 보고된 주요 버그 (최근 7일 이내):**
+    - **UE-350123**: `r.SSR.Stencil` 활성화 시 높은 거칠기 영역이 폐기되지 않고 Unlit 머티리얼이 잘못 처리되는 문제 (Dec 19, 2025) [3]
+    - **UE-350021**: UE 5.7.1에서 `Cooker`가 `Class.h`에서 어서트(Assert)를 발생시키는 문제 (Dec 18, 2025) [3]
+- **수정된 버그 (최근 7일 이내):**
+    - **UE-347106**: `FVirtualTextureAllocator::AcquireBlock`에서 보류 중인 가상 텍스처 삭제로 인한 프리징 문제 (5.7.1 Hotfix) [2]
+    - **UE-348042**: Vulkan RHI 및 비동기 컴퓨팅 사용 시 5.7에서 발생하는 크래시 (Dec 4, 2025, 5.7.1 Hotfix에 포함) [3]
 - **Workaround:**
-    - 5.7/5.7.1 버전에서 DDC 캐시 오류 발생 시, `C:\Users\[YourUsername]\AppData\Local\UnrealEngine\Common` 경로의 UnrealEngine 폴더를 삭제하는 방법이 포럼에서 논의되고 있습니다. (비공식)
-- **Issue Tracker URL:** [https://issues.unrealengine.com/](https://issues.unrealengine.com/)
-
----
+    - 새로 보고된 주요 버그에 대한 공식적인 Workaround는 아직 보고되지 않았습니다.
+- **Issue Tracker URL:** [Unreal Engine Issues and Bug Tracker](https://issues.unrealengine.com/)
 
 ## 4. GitHub 업데이트
 
 - **주요 커밋 및 Pull Request:**
+    - **5.7.1 Hotfix**의 수정 사항이 EpicGames/UnrealEngine 리포지토리에 커밋되었습니다. [2]
     - 최근 7일간 EpicGames/UnrealEngine 공식 저장소의 **main 브랜치에 대한 주요 기술 커밋은 확인되지 않았습니다.**
-    - **관련 업데이트:** Epic Games에서 제공하는 **Unreal Engine 런타임 Docker 이미지**가 1년 이상 오래된 버전이었으나, 최근 **업데이트**되었다는 포럼 공지가 있었습니다. 이는 컨테이너 기반 개발 환경 사용자에게 중요한 변경 사항입니다.
-- **영향받는 시스템:** 컨테이너 기반 빌드 시스템, CI/CD 파이프라인
-- **GitHub URL:** [https://github.com/EpicGames/UnrealEngine](https://github.com/EpicGames/UnrealEngine) (소스 코드)
-
----
+- **영향받는 시스템:** 렌더링, 코어 기술, 에디터 안정성 등 엔진 전반
+- **GitHub URL:** [EpicGames/UnrealEngine](https://github.com/EpicGames/UnrealEngine)
 
 ## 5. 공식 포럼 기술 논의
 
 - **Epic Staff 답변 기술 스레드:**
-    - **"5.7.1 Hotfix Released"** 스레드에서 Epic Staff가 핫픽스에 대한 공식적인 정보를 제공하고 사용자 피드백을 받고 있습니다.
-    - **주요 논의 사항:** 5.7.1 핫픽스에서 해결된 다양한 크래시 및 버그에 대한 사용자 경험 공유.
-- **포럼 URL:** [https://forums.unrealengine.com/t/5-7-1-hotfix-released/2681235](https://forums.unrealengine.com/t/5-7-1-hotfix-released/2681235)
-
----
+    - **Ask Epic: Mobile Development in UEFN** (2025년 12월 18일) [4]
+    - Epic Staff가 UEFN(Unreal Editor for Fortnite)의 모바일 개발 관련 질의응답을 진행했습니다.
+- **포럼 URL:** [Epic Developer Community Forums - Announcements](https://forums.unrealengine.com/c/general/announcements/49)
 
 ## 6. 신기능 및 실험적 기능
 
 - **새로 추가된 기능 (UE 5.7 기준):**
-    - **Substrate Materials** 정식 버전 전환: 모듈형 물리 기반 머티리얼 프레임워크.
-    - **PCG Framework** 정식 버전 전환: 프로시저럴 콘텐츠 제작을 위한 강력한 툴셋.
+    - **Substrate Materials** **정식 출시** (Production-Ready) [1]
+    - **PCG (Procedural Content Generation)** 프레임워크 **정식 출시** (Production-Ready) [1]
+    - **In-editor AI Assistant** 도입 (F1 키로 컨텍스트 기반 도움말 및 코드 생성) [1]
 - **Beta/Experimental 기능 및 주의사항 (UE 5.7 기준):**
-    - **Nanite Foliage and Skinning (실험 단계):** 폴리지 인스턴스 및 스키닝 메시를 위한 나나이트 지원 강화.
-    - **주의사항:** 실험 단계 기능은 프로덕션 환경에서 사용 시 예기치 않은 문제나 API 변경이 발생할 수 있습니다.
+    - **MegaLights** (Beta): 노이즈 감소 및 성능 개선, Directional Light, Niagara Particle Lights, Translucency, Hair Strands 지원 [1]
+    - **Nanite Foliage and Skinning** (Experimental): Nanite Assemblies, Nanite Voxels를 사용한 고밀도/고성능 폴리지 렌더링 [1]
+    - **SMAA** (Experimental): 모바일 및 데스크톱 렌더러에서 Subpixel Morphological Anti-Aliasing 지원 [1]
 - **성능 영향도:**
-    - UE 5.7은 전반적인 CPU 및 GPU 성능 향상에 중점을 두었으며, 특히 **프레임 시간 안정성**과 **루멘(Lumen)의 품질 향상**이 보고되었습니다.
-
----
+    - UE 5.7은 Nanite Foliage 시스템 및 기타 최적화를 통해 GPU 성능 최대 25%, CPU 성능 최대 35% 향상에 기여한다는 테스트 결과가 보고되었습니다. [5]
 
 ## 7. 플러그인 및 문서 업데이트
 
 - **공식 플러그인 업데이트:**
-    - **Microsoft GDK Plug-ins for Unreal Engine** 공식 출시: Xbox PC App으로 게임을 가져오는 프로세스를 간소화합니다.
+    - **Game Animation Sample Project**가 UE 5.7에 맞춰 업데이트되었으며, **Mover 플러그인** 및 Smart Object 설정이 포함되었습니다. [6]
+    - **MetaHuman Creator** 플러그인이 **Linux 및 macOS**를 지원합니다. [1]
 - **문서 주요 변경사항:**
-    - 최근 7일간 공식 문서의 주요 기술적 변경사항은 확인되지 않았으나, **UE 5.7 문서**가 최신 기술(Substrate, PCG 등)에 맞춰 업데이트되었습니다.
-- **Microsoft GDK Plug-ins URL:** [https://developer.microsoft.com/en-us/games/articles/2025/12/microsoft-gdk-plug-ins-for-unreal-engine-now-available/](https://developer.microsoft.com/en-us/games/articles/2025/12/microsoft-gdk-plug-ins-for-unreal-engine-now-available/)
+    - **Unreal Engine 5.7 Documentation**이 최신 기술에 맞춰 업데이트되었습니다. [7]
+
+***
+
+### References
+
+[1] [Unreal Engine 5.7 Release Notes](https://dev.epicgames.com/documentation/en-us/unreal-engine/unreal-engine-5-7-release-notes)
+[2] [5.7.1 Hotfix Released - Epic Developer Community Forums](https://forums.unrealengine.com/t/5-7-1-hotfix-released/2681235)
+[3] [Unreal Engine Issues and Bug Tracker](https://issues.unrealengine.com/)
+[4] [Ask Epic: Mobile Development in UEFN – December 18, 11AM - 12PM ET](https://forums.unrealengine.com/c/general/announcements/49)
+[5] [Unreal Engine 5.7 brings significant improvements over the notoriously demanding 5.4 version, tester claims — benchmark shows up to 25% GPU performance increase, 35% percent CPU boost](https://www.tomshardware.com/video-games/pc-gaming/unreal-engine-5-7-brings-significant-improvements-over-the-notoriously-demanding-5-4-version-tester-claims-benchmark-shows-up-to-25-percent-gpu-performance-increase-35-percent-cpu-boost)
+[6] [Explore the updates to the Game Animation Sample project in UE 5.7](https://www.unrealengine.com/en-US/tech-blog/explore-the-updates-to-the-game-animation-sample-project-in-ue-5-7)
+[7] [Unreal Engine 5.7 Documentation](https://dev.epicgames.com/documentation/en-us/unreal-engine/unreal-engine-5-7-documentation)
